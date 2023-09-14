@@ -11,6 +11,11 @@ export class LayoutOptions {
     hideScheduledDate: boolean = false;
     hideDoneDate: boolean = false;
     hideDueDate: boolean = false;
+    hideRelativeCreatedDate: boolean = true;
+    hideRelativeStartDate: boolean = true;
+    hideRelativeScheduledDate: boolean = true;
+    hideRelativeDoneDate: boolean = true;
+    hideRelativeDueDate: boolean = true;
     hideRecurrenceRule: boolean = false;
     hideEditButton: boolean = false;
     hideUrgency: boolean = true;
@@ -28,6 +33,11 @@ export type TaskLayoutComponent =
     | 'scheduledDate'
     | 'dueDate'
     | 'doneDate'
+    | 'relativeCreatedDate'
+    | 'relativeStartDate'
+    | 'relativeScheduledDate'
+    | 'relativeDueDate'
+    | 'relativeDoneDate'
     | 'blockLink';
 
 /**
@@ -45,6 +55,11 @@ export class TaskLayout {
         'scheduledDate',
         'dueDate',
         'doneDate',
+        'relativeCreatedDate',
+        'relativeStartDate',
+        'relativeScheduledDate',
+        'relativeDueDate',
+        'relativeDoneDate',
         'blockLink',
     ];
     public shownTaskLayoutComponents: TaskLayoutComponent[];
@@ -73,6 +88,11 @@ export class TaskLayout {
             [this.options.hideScheduledDate, 'scheduledDate'],
             [this.options.hideDueDate, 'dueDate'],
             [this.options.hideDoneDate, 'doneDate'],
+            [this.options.hideRelativeCreatedDate, 'relativeCreatedDate'],
+            [this.options.hideRelativeStartDate, 'relativeStartDate'],
+            [this.options.hideRelativeScheduledDate, 'relativeScheduledDate'],
+            [this.options.hideRelativeDueDate, 'relativeDueDate'],
+            [this.options.hideRelativeDoneDate, 'relativeDoneDate'],
         ];
         for (const [hide, component] of componentsToHideAndGenerateClasses) {
             this.hideComponent(hide, component);

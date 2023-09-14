@@ -6,6 +6,7 @@ import { GlobalFilter } from './Config/GlobalFilter';
 import { StatusRegistry } from './StatusRegistry';
 import type { Status } from './Status';
 import { Urgency } from './Urgency';
+import { TasksRelativeDate } from './TasksRelativeDate';
 import { renderTaskLine } from './TaskLineRenderer';
 import type { TaskLineRenderDetails } from './TaskLineRenderer';
 import { DateFallback } from './DateFallback';
@@ -151,6 +152,11 @@ export class Task {
     public readonly scheduledDateIsInferred: boolean;
 
     private _urgency: number | null = null;
+    public relativeCreatedDate: string | null = null;
+    public relativeStartDate: string | null = null;
+    public relativeScheduledDate: string | null = null;
+    public relativeDueDate: string | null = null;
+    public relativeDoneDate: string | null = null;
 
     constructor({
         status,
@@ -518,7 +524,7 @@ export class Task {
     }
 
     /**
-     * Return {@link createdDate} as a {@link TasksDate}, so the field names in scripting docs are consistent with the existing search instruction names, and null values are easy to deal with.
+     * Return {@link TasksDate} as a {@link TasksRelativeDate}, so the field names in scripting docs are consistent with the existing search instruction names, and null values are easy to deal with.
      */
     public get created(): TasksDate {
         return new TasksDate(this.createdDate);
@@ -550,6 +556,56 @@ export class Task {
      */
     public get start(): TasksDate {
         return new TasksDate(this.startDate);
+    }
+
+    /**
+     * Return {@link relativeCreatedDate} as a {@link TasksRelativeDate}, so the field names in scripting docs are consistent with the existing search instruction names, and null values are easy to deal with.
+     */
+    public get relativeCreated(): string {
+        if (this.relativeCreatedDate === null) {
+            this.relativeCreatedDate = new TasksRelativeDate('created').calculate(this);
+        }
+        return this.relativeCreatedDate;
+    }
+
+    /**
+     * Return {@link relativeDoneDate} as a {@link TasksRelativeDate}, so the field names in scripting docs are consistent with the existing search instruction names, and null values are easy to deal with.
+     */
+    public get relativeDone(): string {
+        if (this.relativeDoneDate === null) {
+            this.relativeDoneDate = new TasksRelativeDate('done').calculate(this);
+        }
+        return this.relativeDoneDate;
+    }
+
+    /**
+     * Return {@link relativeDueDate} as a {@link TasksRelativeDate}, so the field names in scripting docs are consistent with the existing search instruction names, and null values are easy to deal with.
+     */
+    public get relativeDue(): string {
+        if (this.relativeDueDate === null) {
+            this.relativeDueDate = new TasksRelativeDate('due').calculate(this);
+        }
+        return this.relativeDueDate;
+    }
+
+    /**
+     * Return {@link relativeScheduledDate} as a {@link TasksRelativeDate}, so the field names in scripting docs are consistent with the existing search instruction names, and null values are easy to deal with.
+     */
+    public get relativeScheduled(): string {
+        if (this.relativeScheduledDate === null) {
+            this.relativeScheduledDate = new TasksRelativeDate('scheduled').calculate(this);
+        }
+        return this.relativeScheduledDate;
+    }
+
+    /**
+     * Return {@link relativeStartDate} as a {@link TasksRelativeDate}, so the field names in scripting docs are consistent with the existing search instruction names, and null values are easy to deal with.
+     */
+    public get relativeStart(): string {
+        if (this.relativeStartDate === null) {
+            this.relativeStartDate = new TasksRelativeDate('start').calculate(this);
+        }
+        return this.relativeStartDate;
     }
 
     /**

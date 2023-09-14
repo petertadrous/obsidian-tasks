@@ -27,6 +27,11 @@ export const LayoutClasses: { [c in TaskLayoutComponent]: string } = {
     createdDate: 'task-created',
     scheduledDate: 'task-scheduled',
     doneDate: 'task-done',
+    relativeDueDate: 'task-relativeDue',
+    relativeStartDate: 'task-relativeStart',
+    relativeCreatedDate: 'task-relativeCreated',
+    relativeScheduledDate: 'task-relativeScheduled',
+    relativeDoneDate: 'task-relativeDone',
     recurrenceRule: 'task-recurring',
     blockLink: '',
 };
@@ -270,6 +275,17 @@ function getTaskComponentClass(component: TaskLayoutComponent, task: Task) {
             }
             break;
         }
+        case 'relativeCreatedDate':
+        case 'relativeDueDate':
+        case 'relativeStartDate':
+        case 'relativeScheduledDate':
+        case 'relativeDoneDate': {
+            const relDate = task[component];
+            if (relDate !== '') {
+                componentClassContainer.push(componentClass);
+            }
+            break;
+        }
     }
     return componentClassContainer;
 }
@@ -317,6 +333,26 @@ function getTaskDataAttributes(component: TaskLayoutComponent, task: Task) {
         }
         case 'doneDate': {
             addDateDataAttributes(task.doneDate, 'taskDone');
+            break;
+        }
+        case 'relativeCreatedDate': {
+            addDateDataAttributes(task.createdDate, 'taskRelativeCreated');
+            break;
+        }
+        case 'relativeDueDate': {
+            addDateDataAttributes(task.dueDate, 'taskRelativeDue');
+            break;
+        }
+        case 'relativeStartDate': {
+            addDateDataAttributes(task.startDate, 'taskRelativeStart');
+            break;
+        }
+        case 'relativeScheduledDate': {
+            addDateDataAttributes(task.scheduledDate, 'taskRelativeScheduled');
+            break;
+        }
+        case 'relativeDoneDate': {
+            addDateDataAttributes(task.doneDate, 'taskRelativeDone');
             break;
         }
     }

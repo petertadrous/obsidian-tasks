@@ -145,6 +145,25 @@ export class DefaultTaskSerializer implements TaskSerializer {
                 return layout.options.shortMode
                     ? ' ' + dueDateSymbol
                     : ` ${dueDateSymbol} ${task.dueDate.format(TaskRegularExpressions.dateFormat)}`;
+            case 'relativeStartDate':
+                if (!task.startDate) return '';
+                return layout.options.shortMode ? ' ' + startDateSymbol : ` ${startDateSymbol} ${task.relativeStart}`;
+            case 'relativeCreatedDate':
+                if (!task.createdDate) return '';
+                return layout.options.shortMode
+                    ? ' ' + createdDateSymbol
+                    : ` ${createdDateSymbol} ${task.relativeCreated}`;
+            case 'relativeScheduledDate':
+                if (!task.scheduledDate || task.scheduledDateIsInferred) return '';
+                return layout.options.shortMode
+                    ? ' ' + scheduledDateSymbol
+                    : ` ${scheduledDateSymbol} ${task.relativeScheduled}`;
+            case 'relativeDoneDate':
+                if (!task.doneDate) return '';
+                return layout.options.shortMode ? ' ' + doneDateSymbol : ` ${doneDateSymbol} ${task.relativeDone}`;
+            case 'relativeDueDate':
+                if (!task.dueDate) return '';
+                return layout.options.shortMode ? ' ' + dueDateSymbol : ` ${dueDateSymbol} ${task.relativeDue}`;
             case 'recurrenceRule':
                 if (!task.recurrence) return '';
                 return layout.options.shortMode

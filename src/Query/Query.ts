@@ -24,7 +24,7 @@ export class Query implements IQuery {
     private _ignoreGlobalQuery: boolean = false;
 
     private readonly hideOptionsRegexp =
-        /^(hide|show) (task count|backlink|priority|created date|start date|scheduled date|done date|due date|recurrence rule|edit button|urgency|tags)/;
+        /^(hide|show) (task count|backlink|priority|(?:relative )?created date|(?:relative )?start date|(?:relative )?scheduled date|(?:relative )?done date|(?:relative )?due date|recurrence rule|edit button|urgency|tags)/;
     private readonly shortModeRegexp = /^short/;
     private readonly explainQueryRegexp = /^explain/;
     private readonly ignoreGlobalQueryRegexp = /^ignore global query/;
@@ -239,6 +239,21 @@ Problem line: "${line}"`;
                     break;
                 case 'done date':
                     this._layoutOptions.hideDoneDate = hide;
+                    break;
+                case 'relative created date':
+                    this._layoutOptions.hideRelativeCreatedDate = hide;
+                    break;
+                case 'relative start date':
+                    this._layoutOptions.hideRelativeStartDate = hide;
+                    break;
+                case 'relative scheduled date':
+                    this._layoutOptions.hideRelativeScheduledDate = hide;
+                    break;
+                case 'relative due date':
+                    this._layoutOptions.hideRelativeDueDate = hide;
+                    break;
+                case 'relative done date':
+                    this._layoutOptions.hideRelativeDoneDate = hide;
                     break;
                 case 'recurrence rule':
                     this._layoutOptions.hideRecurrenceRule = hide;
